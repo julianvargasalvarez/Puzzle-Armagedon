@@ -217,12 +217,27 @@ td { vertical-align: top; }
 {
     border: thin dotted black;    
 }
-.meteor
-{
-    height: 90%;    
-}
-.disc-fake, .disc-real{display:block;}
 
+.disc-real, .disc-fake
+{
+    border: thin solid black;
+}
+
+.disc-real
+{
+    background-color: Black;
+    color: White;
+}
+
+.fire
+{
+    background-color: Red;
+    color: Black;
+}
+.tower
+{
+    border: thin solid red;  
+}
 
 /*
  * Media queries for responsive design https://github.com/shichuan/mobile-html5-boilerplate/wiki/The-Style
