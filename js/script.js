@@ -1,6 +1,8 @@
+
 $(function () {
     var maxWidth = parseInt(window.document.documentElement.clientWidth);
     var maxHeight = parseInt(window.document.documentElement.clientHeight);
+    var numberOfDiscs = 3;
 
     $(".meteor").height((maxHeight * 0.8) + "px");
     $(".towers").height((maxHeight * 0.1) + "px");
@@ -36,6 +38,8 @@ $(function () {
             });
 
             refreshUI(maxWidth, maxHeight);
+
+            verifyShot($this, maxWidth, maxHeight, numberOfDiscs);
         }
     });
 
@@ -79,7 +83,8 @@ function playSatellite(maxWidth, maxHeight) {
             height: width + "px"
         })
         .data("x", left)
-        .data("y", top);
+        .data("y", top)
+        .data("size", width);
 
 
     $(".meteor").append($img);
@@ -111,5 +116,67 @@ function playSatellite(maxWidth, maxHeight) {
         }
 
     }, intervalSpeed);
+}
 
+function verifyShot($tower, maxWidth, maxHeight, numberOfDiscs) {
+    if ($tower.find(".disc-real").length == numberOfDiscs) {
+        shot(maxWidth, maxHeight);
+    }
+}
+
+function shot(maxWidth, maxHeight) {
+    var $img = $("<img/>");
+
+    var width = maxHeight * 0.02;
+    var top = maxHeight * 0.8;
+    var left = maxWidth * 0.4;
+
+    $img.attr("id", "theBullet")
+        .attr("src", "./img/bullet.gif")
+        .css({
+            position: "absolute",
+            top: top + "px",
+            left: left + "px",
+            width: width + "px",
+            height: width + "px"
+        })
+        .data("x", left)
+        .data("y", top);
+
+
+    $(".meteor").append($img);
+
+
+    var intervalSpeed = 10; //milliseconds
+    return setInterval(function () {
+        var speed = 200;
+
+        var $bullet = $("#theBullet");
+        var $meteor = $("#theMeteor");
+
+        var x = parseFloat($bullet.data("x"));
+        var y = parseFloat($bullet.data("y"));
+
+        var xMeteor = $meteor.data("x");
+        var yMeteor = $meteor.data("y");
+        var meteorSize = $meteor.data("size");
+
+        var delta = (speed * (intervalSpeed / 1000));
+        x += delta;
+        y += -1 * delta;
+
+        $bullet.css({
+            top: y + "px",
+            left: x + "px"
+        })
+        .data("x", x)
+        .data("y", y);
+
+        if (y <= yMeteor + meteorSize) {
+            $meteor.remove();
+            $bullet.remove();
+
+        }
+
+    }, intervalSpeed);
 }
