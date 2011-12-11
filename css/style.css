@@ -209,22 +209,19 @@ td { vertical-align: top; }
 
 
 /* ==|== primary styles =====================================================
-   Author:
+   Author: Julian Vargas
    ========================================================================== */
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+.game-block
+{
+    border: thin dotted black;    
+}
+.meteor
+{
+    height: 90%;    
+}
+.disc-fake, .disc-real{display:block;}
 
 
 /*
